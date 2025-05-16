@@ -35,7 +35,7 @@ function Countries() {
         <div className="grid grid-cols-3 gap-20">
           {countries.map((country, id) => (
             <div key={id}>
-              <h3 className="text-lg font-bold">{country.name.common}</h3>
+              <h3 className="text-lg font-bold uppercase">{country.name.common}</h3>
               <p>Located in {country.continents}</p>
               <p>Capital City is {country.capital}</p>
               <p>Languages: {}</p>
