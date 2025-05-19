@@ -56,14 +56,21 @@ function PlanTrip() {
       return;
     }
 
-    const newTrip = { date, enddate, country, description, preparation };
+    const newTrip = {
+      date,
+      enddate,
+      country,
+      description,
+      preparation,
+      mapCoords,
+    };
     const existingTrip = JSON.parse(localStorage.getItem("trip")) || [];
     const matchingDate = existingTrip.some((trip) => trip.date === date);
     if (matchingDate) {
       Swal.fire({
         title: "HOLD ON",
         text: "YOU ALREADY BOOKED A TRIP FOR THIS DATE",
-        icon: "error",
+        icon: "warning",
         confirmButtonColor: "#043927",
       });
       return;
@@ -74,8 +81,8 @@ function PlanTrip() {
     localStorage.setItem("trip", JSON.stringify(existingTrip));
 
     Swal.fire({
-      title: "YOU SAVED YOUR NEXT TRIP",
-      text: "ENJOY YOUR TRIP",
+      title: "OH YESSSS",
+      text: "THERE IS A NEW TRIP COMING",
       icon: "success",
       confirmButtonColor: "#043927",
     });
@@ -146,7 +153,7 @@ function PlanTrip() {
           </div>
         </div>
         <div className="border-40 rounded-lg shadow-lg text-[white]">
-          <Map center={mapCoords} />
+          <Map center={mapCoords} width="600px" height="650px" />
         </div>
       </div>
     </div>

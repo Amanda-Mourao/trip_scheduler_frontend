@@ -1,13 +1,13 @@
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
-function Map({ center }) {
+function Map({ center, width = "100%", height = "650px" }) {
   return (
-    <div className="w-150 bg-gray-200" style={{ height: "650px" }}>
+    <div style={{ width, height }}>
       <MapContainer
         center={[center.lat, center.lng]}
         zoom={2}
-        className="h-full w-full grayscale"
+        className="grayscale"
         style={{ height: "100%", width: "100%" }}
       >
         <TileLayer
