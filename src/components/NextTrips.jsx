@@ -65,7 +65,7 @@ function NextTrips() {
                 </h3>
                 <p className="flex items-center gap-2 pb-3 pl-2">
                   <FaCalendarAlt />
-                  FROM {trip.date} TO {trip.enddate}
+                  From {trip.date} to {trip.enddate}
                 </p>
                 <p className="flex items-center gap-2 pb-3 pl-2">
                   <FaMapLocationDot />

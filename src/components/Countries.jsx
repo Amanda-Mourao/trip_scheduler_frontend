@@ -1,5 +1,16 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { PiCityFill } from "react-icons/pi";
+import { FaLanguage } from "react-icons/fa6";
+import { PiMapPinAreaBold } from "react-icons/pi";
+import { FaPeopleGroup } from "react-icons/fa6";
+import { TbWorldLatitude } from "react-icons/tb";
+import { TbWorldLongitude } from "react-icons/tb";
+import { TbTimezone } from "react-icons/tb";
+import { PiCarProfileBold } from "react-icons/pi";
+import { TbWorldHeart } from "react-icons/tb";
+import { NavLink } from "react-router-dom";
+import { TbWorldSearch } from "react-icons/tb";
 
 function Countries() {
   const [countries, setCountries] = useState([]);
@@ -26,25 +37,28 @@ function Countries() {
  
 
   return (
-    <div className="p-20">
-      <h2 className="text-4xl font-bold mb-15">ALL COUNTRIES</h2>
+    <div className="bg-[#0439271f]">
+      <div className="flex items-center justify-between pt-25 pl-25 pr-25">
+      <h2 className="text-6xl font-bold text-[#043927]">ALL COUNTRIES</h2>
+      <NavLink to="map" className="bg-[#043927] rounded-lg p-2 text-lg shadow-lg hover:shadow-white text-white font-bold flex items-center gap-1"><TbWorldSearch />SEARCH ON MAP</NavLink>
+      </div>
       {error && <p>{error}</p>}
       {loading ? (
         <p>LOADING...</p>
       ) : (
-        <div className="grid grid-cols-3 gap-20">
+        <div className="grid grid-cols-3 gap-20 pt-10 p-25">
           {countries.map((country, id) => (
-            <div key={id}>
-              <h3 className="text-lg font-bold uppercase">{country.name.common}</h3>
-              <p>Located in {country.continents}</p>
-              <p>Capital City is {country.capital}</p>
-              <p>Languages: {}</p>
-              <p>Area: {country.area} km²</p>
-              <p>Population: {country.population}</p>
-              <p>Latitude: {country.latlng[0]}</p>
-              <p>Longitude: {country.latlng[1]}</p>
-              <p>Timezone: {country.timezones}</p>
-              <p>Driving side is {country.car.side}</p>
+            <div key={id} className="bg-white text-[#043927] rounded-lg shadow-lg font-semibold p-5">
+              <h3 className="text-4xl font-semibold uppercase flex items-center justify-between">{country.name.common}<TbWorldHeart /></h3>
+              <p className="pb-4 text-2xl font-semibold">Located in {country.continents}</p>
+              <p className="flex items-center gap-1 pb-2 pl-2 text-lg font-semibold"><PiCityFill />Capital City: {country.capital}</p>
+              <p className="flex items-center gap-1 pb-2 pl-2 text-lg font-semibold"><FaLanguage />Languages: {}</p>
+              <p className="flex items-center gap-1 pb-2 pl-2 text-lg font-semibold"><PiMapPinAreaBold />Area: {country.area} km²</p>
+              <p className="flex items-center gap-1 pb-2 pl-2 text-lg font-semibold"><FaPeopleGroup />Population: {country.population}</p>
+              <p className="flex items-center gap-1 pb-2 pl-2 text-lg font-semibold"><TbWorldLatitude />Latitude: {country.latlng[0]}</p>
+              <p className="flex items-center gap-1 pb-2 pl-2 text-lg font-semibold"><TbWorldLongitude />Longitude: {country.latlng[1]}</p>
+              <p className="flex items-center gap-1 pb-2 pl-2 text-lg font-semibold"><TbTimezone />Timezone: {country.timezones}</p>
+              <p className="flex items-center gap-1  pb-2 pl-2 text-lg font-semibold capitalize"><PiCarProfileBold />Driving Side: {country.car.side}</p>
             </div>
           ))}
         </div>
