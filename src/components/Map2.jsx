@@ -1,7 +1,13 @@
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
-function Map({ center, width = "100%", height = "650px" }) {
+function Map2({
+  countries = [],
+  onMarkerClick,
+  center,
+  width = "100%",
+  height = "650px",
+}) {
   return (
     <div style={{ width, height }}>
       <MapContainer
@@ -14,12 +20,24 @@ function Map({ center, width = "100%", height = "650px" }) {
           url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/">CARTO</a>'
         />
-        <Marker position={[center.lat, center.lng]}>
-          <Popup>SELECTED LOCATION</Popup>
-        </Marker>
+        {countries.map((country, id) =>
+          country.latlng && country.latlng.length === 2 ? (
+            <Marker
+              key={id}
+              position={country.latlng}
+              eventHandlers={{
+                click: () => onMarkerClick(country),
+              }}
+            >
+              <Popup>
+                <strong className="uppercase">{country.name.common}</strong>
+              </Popup>
+            </Marker>
+          ) : null
+        )}
       </MapContainer>
     </div>
   );
 }
 
-export default Map;
+export default Map2;
