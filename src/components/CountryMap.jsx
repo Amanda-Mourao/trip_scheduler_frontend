@@ -12,7 +12,7 @@ import { TbWorldLatitude } from "react-icons/tb";
 import { TbWorldLongitude } from "react-icons/tb";
 import { TbTimezone } from "react-icons/tb";
 import { PiCarProfileBold } from "react-icons/pi";
-
+import { BsCurrencyExchange } from "react-icons/bs";
 
 function CountryMap() {
   const [countries, setCountries] = useState([]);
@@ -42,12 +42,12 @@ function CountryMap() {
   };
 
   return (
-    <div className="bg-[#0439271f] p-25">
+    <div className="bg-[#04392740] p-25">
       <div className="flex items-center justify-between pb-10">
         <h2 className="text-6xl font-bold text-[#043927]">ALL COUNTRIES</h2>
         <NavLink
           to="/countries"
-          className="bg-[#043927] rounded-lg p-2 text-lg shadow-lg hover:shadow-white text-white font-bold flex items-center gap-1"
+          className="bg-[#043927] rounded-lg p-2 text-lg shadow-lg hover:shadow-[#04392740] text-white font-bold flex items-center gap-1"
         >
           <PiListMagnifyingGlassBold />
           BACK TO LIST
@@ -55,16 +55,18 @@ function CountryMap() {
       </div>
       {error && <p>{error}</p>}
       {loading ? (
-        <p>LOADING...</p>
+        <p className="text-lg font-semibold text-[#043927] p-25">LOADING...</p>
       ) : (
-        <div className="flex justify-between gap-10">
-          <div className="bg-white h-[580px] w-325 text-[#043927] rounded-lg shadow-lg font-semibold border-40 border-white">
+        <div className="flex justify-between items-between gap-10">
+          <div className="bg-white h-[710px] w-325 text-[#043927] rounded-lg shadow-lg font-semibold border-40 border-white">
             {selectedCountry ? (
               <>
-              
-                <h3 className="text-4xl font-semibold uppercase flex items-center gap-4 pb-8">
+                <h3 className="text-4xl font-semibold uppercase flex items-baseline justify-between pb-8">
                   {selectedCountry.name.common}
-                  <img src={selectedCountry.flags?.png} className="h-10 w-15 border-1 border-gray-300" />
+                  <img
+                    src={selectedCountry.flags?.png}
+                    className="h-10 w-15 border-1 border-gray-300"
+                  />
                 </h3>
                 <p className="flex items-center gap-1 pb-6 pl-2 text-xl font-semibold">
                   <PiCityFill />
@@ -97,8 +99,16 @@ function CountryMap() {
                 </p>
                 <p className="flex items-center gap-1 pb-6 pl-2 text-xl font-semibold">
                   <TbTimezone />
-                  Timezone:{" "}
-                  {selectedCountry.timezones.slice(0, 1)}
+                  Timezone: {selectedCountry.timezones.slice(0, 1)}
+                </p>
+                <p className="flex items-center gap-1 pb-6 pl-2 text-xl font-semibold capitalize">
+                  <BsCurrencyExchange />
+                  Currency:{" "}
+                  {selectedCountry.currencies
+                    ? Object.values(selectedCountry.currencies).map(
+                        (currency) => currency.name
+                      )
+                    : "N/A"}
                 </p>
                 <p className="flex items-center gap-1  pb-6 pl-2 text-xl font-semibold capitalize">
                   <PiCarProfileBold />
@@ -118,7 +128,7 @@ function CountryMap() {
               onMarkerClick={handleMarkerClick}
               center={{ lat: 20, lng: 0 }}
               width="700px"
-              height="500px"
+              height="630px"
             />
           </div>
         </div>

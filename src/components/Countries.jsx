@@ -35,12 +35,12 @@ function Countries() {
   }, []);
 
   return (
-    <div className="bg-[#0439271f]">
+    <div className="bg-[#04392740]">
       <div className="flex items-center justify-between pt-25 pl-25 pr-25">
         <h2 className="text-6xl font-bold text-[#043927]">ALL COUNTRIES</h2>
         <NavLink
           to="map"
-          className="bg-[#043927] rounded-lg p-2 text-lg shadow-lg hover:shadow-white text-white font-bold flex items-center gap-1"
+          className="bg-[#043927] rounded-lg p-2 text-lg shadow-lg hover:shadow-[#04392740] text-white font-bold flex items-center gap-1"
         >
           <TbWorldSearch />
           SEARCH ON MAP
@@ -50,7 +50,7 @@ function Countries() {
       {loading ? (
         <p>LOADING...</p>
       ) : (
-        <div className="grid grid-cols-3 gap-20 pt-10 p-25">
+        <div className="grid grid-cols-3 gap-15 pt-10 p-25">
           {countries.map((country, id) => (
             <div
               key={id}
@@ -97,10 +97,15 @@ function Countries() {
                 <TbTimezone />
                 Timezone: {country.timezones.slice(0, 1)}
               </p>
-              {/* <p className="flex items-center gap-1  pb-2 pl-2 text-lg font-semibold capitalize">
+              <p className="flex items-center gap-1  pb-2 pl-2 text-lg font-semibold capitalize">
                 <BsCurrencyExchange />
-                Currency: {}
-              </p> */}
+                Currency:{" "}
+                {country.currencies
+                  ? Object.values(country.currencies).map(
+                      (currency) => currency.name
+                    )
+                  : "N/A"}
+              </p>
               <p className="flex items-center gap-1  pb-2 pl-2 text-lg font-semibold capitalize">
                 <PiCarProfileBold />
                 Driving Side: {country.car.side}
