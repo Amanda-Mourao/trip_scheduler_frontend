@@ -48,7 +48,7 @@ function Countries() {
       </div>
       {error && <p>{error}</p>}
       {loading ? (
-        <p>LOADING...</p>
+        <p className="text-lg font-semibold text-[#043927] p-25">LOADING...</p>
       ) : (
         <div className="grid grid-cols-3 gap-15 pt-10 p-25">
           {countries.map((country, id) => (
