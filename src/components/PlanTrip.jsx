@@ -102,7 +102,7 @@ function PlanTrip() {
       </h2>
       <div className="flex justify-between gap-10 p-25 pt-10 bg-[#043927b6] text-white">
         <div className="bg-white border-40 border-white rounded-lg shadow-lg text-[#043927] text-xl font-semibold">
-          <div className="flex flex-col justify-between gap-3">
+          <form className="flex flex-col justify-between gap-3">
             <label>WHEN DOES YOUR TRIP START?</label>
             <input
               type="date"
@@ -150,7 +150,7 @@ function PlanTrip() {
                 <PiAirplaneTiltBold />
               </button>
             </div>
-          </div>
+          </form>
         </div>
         <div className="border-40 rounded-lg shadow-lg text-[white]">
           <Map center={mapCoords} width="600px" height="650px" />
