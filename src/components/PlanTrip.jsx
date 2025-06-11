@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Map from "./Map";
+import { NavLink } from "react-router-dom";
 import { PiAirplaneTiltBold } from "react-icons/pi";
 import Swal from "sweetalert2";
 
@@ -102,7 +103,7 @@ function PlanTrip() {
       </h2>
       <div className="flex justify-between gap-10 p-25 pt-10 bg-[#043927b6] text-white">
         <div className="bg-white border-40 border-white rounded-lg shadow-lg text-[#043927] text-xl font-semibold">
-          <form className="flex flex-col justify-between gap-3">
+          <form className="flex flex-col justify-evenly gap-3">
             <label>WHEN DOES YOUR TRIP START?</label>
             <input
               type="date"
@@ -142,6 +143,7 @@ function PlanTrip() {
               className="placeholder-[#043927b6] text-[#043927b6] text-lg p-2 mb-5 border-2 border-[#043927] rounded-lg"
             />
             <div>
+              <NavLink to="/">
               <button
                 onClick={handleSubmit}
                 className="bg-[#043927] rounded-lg p-2 text-lg shadow-lg hover:shadow-white text-white font-bold flex items-center gap-1"
@@ -149,6 +151,7 @@ function PlanTrip() {
                 SAVE THIS TRIP
                 <PiAirplaneTiltBold />
               </button>
+              </NavLink>
             </div>
           </form>
         </div>

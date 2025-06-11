@@ -46,9 +46,9 @@ function Countries() {
           SEARCH ON MAP
         </NavLink>
       </div>
-      {error && <p>{error}</p>}
+      {error && <p className="min-h-screen text-lg font-semibold text-[#043927] p-25 uppercase">{error}</p>}
       {loading ? (
-        <p className="text-lg font-semibold text-[#043927] p-25">LOADING...</p>
+        <p className="min-h-screen text-lg font-semibold text-[#043927] p-25">LOADING...</p>
       ) : (
         <div className="grid grid-cols-3 gap-15 pt-10 p-25">
           {countries.map((country, id) => (

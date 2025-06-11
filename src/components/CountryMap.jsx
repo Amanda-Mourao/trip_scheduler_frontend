@@ -53,9 +53,9 @@ function CountryMap() {
           BACK TO LIST
         </NavLink>
       </div>
-      {error && <p>{error}</p>}
+      {error && <p className="text-lg font-semibold text-[#043927] uppercase">{error}</p>}
       {loading ? (
-        <p className="text-lg font-semibold text-[#043927] p-25">LOADING...</p>
+        <p className="min-h-screen text-lg font-semibold text-[#043927]">LOADING...</p>
       ) : (
         <div className="flex justify-between items-between gap-10">
           <div className="bg-white h-[710px] w-325 text-[#043927] rounded-lg shadow-lg font-semibold border-40 border-white">
