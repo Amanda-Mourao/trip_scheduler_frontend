@@ -143,7 +143,6 @@ function PlanTrip() {
               className="placeholder-[#043927b6] text-[#043927b6] text-lg p-2 mb-5 border-2 border-[#043927] rounded-lg"
             />
             <div>
-              <NavLink to="/">
               <button
                 onClick={handleSubmit}
                 className="bg-[#043927] rounded-lg p-2 text-lg shadow-lg hover:shadow-white text-white font-bold flex items-center gap-1"
@@ -151,7 +150,6 @@ function PlanTrip() {
                 SAVE THIS TRIP
                 <PiAirplaneTiltBold />
               </button>
-              </NavLink>
             </div>
           </form>
         </div>
