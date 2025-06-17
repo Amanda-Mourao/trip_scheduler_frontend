@@ -144,13 +144,13 @@ function PlanTrip() {
             />
             <div>
               <NavLink to="/trip">
-              <button
-                onClick={handleSubmit}
-                className="bg-[#043927] rounded-lg p-2 text-lg shadow-lg hover:shadow-white text-white font-bold flex items-center gap-1"
-              >
-                SAVE THIS TRIP
-                <PiAirplaneTiltBold />
-              </button>
+                <button
+                  onClick={handleSubmit}
+                  className="bg-[#043927] rounded-lg p-2 text-lg shadow-lg hover:shadow-white text-white font-bold flex items-center gap-1"
+                >
+                  SAVE THIS TRIP
+                  <PiAirplaneTiltBold />
+                </button>
               </NavLink>
             </div>
           </form>
