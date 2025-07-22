@@ -24,12 +24,39 @@ function CountryMap() {
     const fetchCountries = async () => {
       try {
         setLoading(true);
-        const response = await axios.get("https://restcountries.com/v3.1/all");
-        setCountries(response.data);
-        console.log(response.data);
+        setError("");
+
+        const covidResponse = await axios.get(
+          "https://disease.sh/v3/covid-19/countries"
+        );
+
+        const countriesResponse = await axios.get(
+          "https://restcountries.com/v3.1/all?fields=name,capital,languages,area,timezones,currencies,car"
+        );
+
+        const mergedData = covidResponse.data.map((covidCountry) => {
+          const countryData = countriesResponse.data.find(
+            (country) =>
+              country?.name?.common?.toLowerCase() ===
+              covidCountry?.country?.toLowerCase()
+          );
+
+          return {
+            ...covidCountry,
+            additionalInfo: countryData || {},
+            latlng: countryData?.latlng || [
+              covidCountry?.countryInfo?.lat,
+              covidCountry?.countryInfo?.long,
+            ],
+            name: { common: covidCountry?.country || "Unknown" },
+          };
+        });
+
+        setCountries(mergedData);
+        console.log(mergedData);
       } catch (error) {
-        console.error(error);
-        setError(error.message);
+        console.error("Error fetching countries:", error);
+        setError(error?.message || "Failed to load countries");
       } finally {
         setLoading(false);
       }
@@ -53,66 +80,83 @@ function CountryMap() {
           BACK TO LIST
         </NavLink>
       </div>
-      {error && <p className="text-lg font-semibold text-[#043927] uppercase">{error}</p>}
+      {error && (
+        <p className="text-lg font-semibold text-[#043927] uppercase">
+          {error}
+        </p>
+      )}
       {loading ? (
-        <p className="min-h-screen text-lg font-semibold text-[#043927]">LOADING...</p>
+        <p className="min-h-screen text-lg font-semibold text-[#043927]">
+          LOADING...
+        </p>
       ) : (
         <div className="flex justify-between items-between gap-10">
-          <div className="bg-white h-[710px] w-325 text-[#043927] rounded-lg shadow-lg font-semibold border-40 border-white">
+          <div className="bg-white h-[710px] w-325 text-[#043927] rounded-lg shadow-lg font-semibold border-40 border-white p-5">
             {selectedCountry ? (
               <>
-                <h3 className="text-4xl font-semibold uppercase flex items-baseline justify-between pb-8">
-                  {selectedCountry.name.common}
+                <h3 className="text-4xl font-semibold uppercase flex items-baseline justify-between pb-4">
+                  {selectedCountry?.country || "Unknown Country"}
                   <img
-                    src={selectedCountry.flags?.png}
+                    src={selectedCountry?.countryInfo?.flag}
+                    alt={`${selectedCountry?.country || "Country"} flag`}
                     className="h-10 w-15 border-1 border-gray-300"
                   />
                 </h3>
-                <p className="flex items-center gap-1 pb-6 pl-2 text-xl font-semibold">
-                  <PiCityFill />
-                  Capital City: {selectedCountry.capital}
+                <p className="pb-4 text-2xl font-semibold">
+                  Located in {selectedCountry?.continent || "N/A"}
                 </p>
-                <p className="flex items-center gap-1 pb-6 pl-2 text-xl font-semibold">
+                <p className="flex items-center gap-1 pb-2 pl-2 text-lg font-semibold">
+                  <PiCityFill />
+                  Capital City:{" "}
+                  {selectedCountry?.additionalInfo?.capital?.[0] || "N/A"}
+                </p>
+                <p className="flex items-center gap-1 pb-2 pl-2 text-lg font-semibold">
                   <FaLanguage />
                   Languages:{" "}
-                  {selectedCountry.languages
-                    ? Object.values(selectedCountry.languages)
+                  {selectedCountry?.additionalInfo?.languages
+                    ? Object.values(selectedCountry.additionalInfo.languages)
                         .slice(0, 2)
                         .join(", ")
                     : "N/A"}
                 </p>
-                <p className="flex items-center gap-1 pb-6 pl-2 text-xl font-semibold">
+                <p className="flex items-center gap-1 pb-2 pl-2 text-lg font-semibold">
                   <PiMapPinAreaBold />
-                  Area: {selectedCountry.area} km²
-                </p>
-                <p className="flex items-center gap-1 pb-6 pl-2 text-xl font-semibold">
-                  <FaPeopleGroup />
-                  Population: {selectedCountry.population}
-                </p>
-                <p className="flex items-center gap-1 pb-6 pl-2 text-xl font-semibold">
-                  <TbWorldLatitude />
-                  Latitude: {selectedCountry.latlng[0]}
-                </p>
-                <p className="flex items-center gap-1 pb-6 pl-2 text-xl font-semibold">
-                  <TbWorldLongitude />
-                  Longitude: {selectedCountry.latlng[1]}
-                </p>
-                <p className="flex items-center gap-1 pb-6 pl-2 text-xl font-semibold">
-                  <TbTimezone />
-                  Timezone: {selectedCountry.timezones.slice(0, 1)}
-                </p>
-                <p className="flex items-center gap-1 pb-6 pl-2 text-xl font-semibold capitalize">
-                  <BsCurrencyExchange />
-                  Currency:{" "}
-                  {selectedCountry.currencies
-                    ? Object.values(selectedCountry.currencies).map(
-                        (currency) => currency.name
-                      )
+                  Area:{" "}
+                  {selectedCountry?.additionalInfo?.area
+                    ? `${selectedCountry.additionalInfo.area} km²`
                     : "N/A"}
                 </p>
-                <p className="flex items-center gap-1  pb-6 pl-2 text-xl font-semibold capitalize">
+                <p className="flex items-center gap-1 pb-2 pl-2 text-lg font-semibold">
+                  <FaPeopleGroup />
+                  Population:{" "}
+                  {selectedCountry?.population?.toLocaleString() || "N/A"}
+                </p>
+                <p className="flex items-center gap-1 pb-2 pl-2 text-lg font-semibold">
+                  <TbWorldLatitude />
+                  Latitude: {selectedCountry?.countryInfo?.lat || "N/A"}
+                </p>
+                <p className="flex items-center gap-1 pb-2 pl-2 text-lg font-semibold">
+                  <TbWorldLongitude />
+                  Longitude: {selectedCountry?.countryInfo?.long || "N/A"}
+                </p>
+                <p className="flex items-center gap-1 pb-2 pl-2 text-lg font-semibold">
+                  <TbTimezone />
+                  Timezone:{" "}
+                  {selectedCountry?.additionalInfo?.timezones?.[0] || "N/A"}
+                </p>
+                <p className="flex items-center gap-1  pb-2 pl-2 text-lg font-semibold capitalize">
+                  <BsCurrencyExchange />
+                  Currency:{" "}
+                  {selectedCountry?.additionalInfo?.currencies
+                    ? Object.values(selectedCountry.additionalInfo.currencies)
+                        .map((currency) => currency?.name || "Unknown")
+                        .join(", ")
+                    : "N/A"}
+                </p>
+                <p className="flex items-center gap-1  pb-2 pl-2 text-lg font-semibold capitalize">
                   <PiCarProfileBold />
-                  Driving Side: {selectedCountry.car?.side}
+                  Driving Side:{" "}
+                  {selectedCountry?.additionalInfo?.car?.side || "N/A"}
                 </p>
               </>
             ) : (

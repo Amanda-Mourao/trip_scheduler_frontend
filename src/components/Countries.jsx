@@ -21,16 +21,39 @@ function Countries() {
     const fetchCountries = async () => {
       try {
         setLoading(true);
-        const response = await axios.get("https://restcountries.com/v3.1/all");
-        setCountries(response.data);
-        console.log(response.data);
+        setError("");
+
+        const covidResponse = await axios.get(
+          "https://disease.sh/v3/covid-19/countries"
+        );
+
+        const countriesResponse = await axios.get(
+          "https://restcountries.com/v3.1/all?fields=name,capital,languages,area,timezones,currencies,car"
+        );
+
+        const mergedData = covidResponse.data.map((covidCountry) => {
+          const countryData = countriesResponse.data.find(
+            (country) =>
+              country?.name?.common?.toLowerCase() ===
+              covidCountry?.country?.toLowerCase()
+          );
+
+          return {
+            ...covidCountry,
+            additionalInfo: countryData || {},
+          };
+        });
+
+        setCountries(mergedData);
+        console.log(mergedData);
       } catch (error) {
-        console.error(error);
-        setError(error.message);
+        console.error("Error fetching countries:", error);
+        setError(error?.message || "Failed to load countries");
       } finally {
         setLoading(false);
       }
     };
+
     fetchCountries();
   }, []);
 
@@ -46,69 +69,81 @@ function Countries() {
           SEARCH ON MAP
         </NavLink>
       </div>
-      {error && <p className="min-h-screen text-lg font-semibold text-[#043927] p-25 uppercase">{error}</p>}
+      {error && (
+        <p className="min-h-screen text-lg font-semibold text-[#043927] p-25 uppercase">
+          {error}
+        </p>
+      )}
       {loading ? (
-        <p className="min-h-screen text-lg font-semibold text-[#043927] p-25">LOADING...</p>
+        <p className="min-h-screen text-lg font-semibold text-[#043927] p-25">
+          LOADING...
+        </p>
       ) : (
         <div className="grid grid-cols-3 gap-15 pt-10 p-25">
           {countries.map((country, id) => (
             <div
-              key={id}
+              key={country?.country || id}
               className="bg-white text-[#043927] rounded-lg shadow-lg font-semibold p-5"
             >
               <h3 className="text-4xl font-semibold uppercase flex items-baseline justify-between">
-                {country.name.common}
+                {country?.country || "Unknown Country"}
                 <img
-                  src={country.flags?.png}
+                  src={country?.countryInfo?.flag}
+                  alt={`${country?.country || "Country"} flag`}
                   className="h-10 w-15 border-1 border-gray-300"
                 />
               </h3>
               <p className="pb-4 text-2xl font-semibold">
-                Located in {country.continents}
+                Located in {country?.continent || "N/A"}
               </p>
               <p className="flex items-center gap-1 pb-2 pl-2 text-lg font-semibold">
                 <PiCityFill />
-                Capital City: {country.capital}
+                Capital City: {country?.additionalInfo?.capital?.[0] || "N/A"}
               </p>
               <p className="flex items-center gap-1 pb-2 pl-2 text-lg font-semibold">
                 <FaLanguage />
                 Languages:{" "}
-                {country.languages
-                  ? Object.values(country.languages).slice(0, 2).join(", ")
+                {country?.additionalInfo?.languages
+                  ? Object.values(country.additionalInfo.languages)
+                      .slice(0, 2)
+                      .join(", ")
                   : "N/A"}
               </p>
               <p className="flex items-center gap-1 pb-2 pl-2 text-lg font-semibold">
                 <PiMapPinAreaBold />
-                Area: {country.area} km²
+                Area:{" "}
+                {country?.additionalInfo?.area
+                  ? `${country.additionalInfo.area} km²`
+                  : "N/A"}
               </p>
               <p className="flex items-center gap-1 pb-2 pl-2 text-lg font-semibold">
                 <FaPeopleGroup />
-                Population: {country.population}
+                Population: {country?.population?.toLocaleString() || "N/A"}
               </p>
               <p className="flex items-center gap-1 pb-2 pl-2 text-lg font-semibold">
                 <TbWorldLatitude />
-                Latitude: {country.latlng[0]}
+                Latitude: {country?.countryInfo?.lat || "N/A"}
               </p>
               <p className="flex items-center gap-1 pb-2 pl-2 text-lg font-semibold">
                 <TbWorldLongitude />
-                Longitude: {country.latlng[1]}
+                Longitude: {country?.countryInfo?.long || "N/A"}
               </p>
               <p className="flex items-center gap-1 pb-2 pl-2 text-lg font-semibold">
                 <TbTimezone />
-                Timezone: {country.timezones.slice(0, 1)}
+                Timezone: {country?.additionalInfo?.timezones?.[0] || "N/A"}
               </p>
               <p className="flex items-center gap-1  pb-2 pl-2 text-lg font-semibold capitalize">
                 <BsCurrencyExchange />
                 Currency:{" "}
-                {country.currencies
-                  ? Object.values(country.currencies).map(
-                      (currency) => currency.name
-                    )
+                {country?.additionalInfo?.currencies
+                  ? Object.values(country.additionalInfo.currencies)
+                      .map((currency) => currency?.name || "Unknown")
+                      .join(", ")
                   : "N/A"}
               </p>
-              <p className="flex items-center gap-1  pb-2 pl-2 text-lg font-semibold capitalize">
+              <p className="flex items-center gap-1 pb-2 pl-2 text-lg font-semibold capitalize">
                 <PiCarProfileBold />
-                Driving Side: {country.car.side}
+                Driving Side: {country?.additionalInfo?.car?.side || "N/A"}
               </p>
             </div>
           ))}
