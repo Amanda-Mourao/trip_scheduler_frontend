@@ -69,9 +69,11 @@ function CountryMap() {
   };
 
   return (
-    <div className="bg-[#04392740] p-25">
-      <div className="flex items-center justify-between pb-10">
-        <h2 className="text-6xl font-bold text-[#043927]">ALL COUNTRIES</h2>
+    <div className="bg-[#04392740] p-4 sm:p-25">
+      <div className="flex flex-col sm:flex-row items-center justify-between pb-10 gap-4">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-[#043927]">
+          ALL COUNTRIES
+        </h2>
         <NavLink
           to="/countries"
           className="bg-[#043927] rounded-lg p-2 text-lg shadow-lg hover:shadow-[#04392740] text-white font-bold flex items-center gap-1"
@@ -90,11 +92,11 @@ function CountryMap() {
           LOADING...
         </p>
       ) : (
-        <div className="flex justify-between items-between gap-10">
-          <div className="bg-white h-[710px] w-325 text-[#043927] rounded-lg shadow-lg font-semibold border-40 border-white p-5">
+        <div className="flex flex-col lg:flex-row justify-between items-start gap-4 sm:gap-10">
+          <div className="bg-white h-auto lg:h-[600px] w-full lg:w-auto lg:flex-[0.4] text-[#043927] rounded-lg shadow-lg font-semibold border-40 border-white p-5">
             {selectedCountry ? (
               <>
-                <h3 className="text-4xl font-semibold uppercase flex items-baseline justify-between pb-4">
+                <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold uppercase flex flex-col sm:flex-row items-baseline justify-between pb-4 gap-2">
                   {selectedCountry?.country || "Unknown Country"}
                   <img
                     src={selectedCountry?.countryInfo?.flag}
@@ -102,7 +104,7 @@ function CountryMap() {
                     className="h-10 w-15 border-1 border-gray-300"
                   />
                 </h3>
-                <p className="pb-4 text-2xl font-semibold">
+                <p className="pb-4 text-lg sm:text-xl md:text-2xl font-semibold">
                   Located in {selectedCountry?.continent || "N/A"}
                 </p>
                 <p className="flex items-center gap-1 pb-2 pl-2 text-lg font-semibold">
@@ -160,19 +162,19 @@ function CountryMap() {
                 </p>
               </>
             ) : (
-              <p className="text-3xl font-semibold text-[#043927b6]">
+              <p className="text-lg sm:text-2xl md:text-3xl font-semibold text-[#043927b6]">
                 CLICK ON A COUNTRY FOR MORE DETAILS
-                <CgArrowLongRight className="text-6xl" />
+                <CgArrowLongRight className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl" />
               </p>
             )}
           </div>
-          <div className="flex justify-end items-baseline border-40 border-white bg-white rounded-lg shadow-lg">
+          <div className="bg-white border-40 border-white rounded-lg shadow-lg w-full lg:w-auto lg:flex-[0.6] overflow-hidden h-[400px] lg:h-[600px]">
             <Map2
               countries={countries}
               onMarkerClick={handleMarkerClick}
               center={{ lat: 20, lng: 0 }}
-              width="700px"
-              height="630px"
+              width="100%"
+              height="100%"
             />
           </div>
         </div>

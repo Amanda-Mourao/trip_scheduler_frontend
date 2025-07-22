@@ -15,7 +15,7 @@ function Map2({
   onMarkerClick,
   center,
   width = "100%",
-  height = "650px",
+  height = "400px",
 }) {
   return (
     <div style={{ width, height }}>

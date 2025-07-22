@@ -10,7 +10,7 @@ L.Icon.Default.prototype.options.iconRetinaUrl = markerIconRetinaUrl;
 L.Icon.Default.prototype.options.shadowUrl = markerShadowUrl;
 L.Icon.Default.imagePath = "";
 
-function Map({ center, width = "100%", height = "650px" }) {
+function Map({ center, width = "100%", height = "400px" }) {
   return (
     <div style={{ width, height }}>
       <MapContainer

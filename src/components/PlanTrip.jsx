@@ -98,25 +98,25 @@ function PlanTrip() {
 
   return (
     <div>
-      <h2 className="text-6xl font-bold text-white bg-[#043927b6] pt-25 pl-25">
+      <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white bg-[#043927b6] pt-25 pl-4 sm:pl-25">
         PLAN YOUR NEXT TRIP
       </h2>
-      <div className="flex justify-between gap-10 p-25 pt-10 bg-[#043927b6] text-white">
-        <div className="bg-white border-40 border-white rounded-lg shadow-lg text-[#043927] text-xl font-semibold">
+      <div className="flex flex-col lg:flex-row justify-between gap-4 sm:gap-10 p-4 sm:p-25 pt-10 bg-[#043927b6] text-white">
+        <div className="bg-white border-40 border-white rounded-lg shadow-lg text-[#043927] text-lg sm:text-xl font-semibold p-4 w-full lg:w-auto lg:flex-1">
           <form className="flex flex-col justify-evenly gap-3">
             <label>WHEN DOES YOUR TRIP START?</label>
             <input
               type="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
-              className="text-[#043927b6] text-lg p-2 mb-5 border-2 border-[#043927] rounded-lg"
+              className="text-[#043927b6] text-base sm:text-lg p-2 mb-5 border-2 border-[#043927] rounded-lg w-full"
             />
             <label>WHEN DOES YOUR TRIP END?</label>
             <input
               type="date"
               value={enddate}
               onChange={(e) => setEnddate(e.target.value)}
-              className="text-[#043927b6] text-lg p-2 mb-5 border-2 border-[#043927] rounded-lg"
+              className="text-[#043927b6] text-base sm:text-lg p-2 mb-5 border-2 border-[#043927] rounded-lg w-full"
             />
             <label>WHICH COUNTRY DO YOU WANT TO VISIT?</label>
             <input
@@ -124,7 +124,7 @@ function PlanTrip() {
               value={country}
               onChange={handleCountryChange}
               placeholder="type in your destination"
-              className="placeholder-[#043927b6] text-[#043927b6] text-lg p-2 mb-5 border-2 border-[#043927] rounded-lg"
+              className="placeholder-[#043927b6] text-[#043927b6] text-base sm:text-lg p-2 mb-5 border-2 border-[#043927] rounded-lg w-full"
             />
             <label>PLACES YOU WANT TO VISIT OR ACTIVITIES?</label>
             <input
@@ -132,7 +132,7 @@ function PlanTrip() {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="type in your plans"
-              className="placeholder-[#043927b6] text-[#043927b6] text-lg p-2 mb-5 border-2 border-[#043927] rounded-lg"
+              className="placeholder-[#043927b6] text-[#043927b6] text-base sm:text-lg p-2 mb-5 border-2 border-[#043927] rounded-lg w-full"
             />
             <label>WHAT DO YOU NEED FOR THIS TRIP?</label>
             <input
@@ -140,7 +140,7 @@ function PlanTrip() {
               value={preparation}
               onChange={(e) => setPreparation(e.target.value)}
               placeholder="type in what needs to be done in advance"
-              className="placeholder-[#043927b6] text-[#043927b6] text-lg p-2 mb-5 border-2 border-[#043927] rounded-lg"
+              className="placeholder-[#043927b6] text-[#043927b6] text-base sm:text-lg p-2 mb-5 border-2 border-[#043927] rounded-lg w-full"
             />
             <div>
               <NavLink to="/trip">
@@ -155,8 +155,8 @@ function PlanTrip() {
             </div>
           </form>
         </div>
-        <div className="border-40 rounded-lg shadow-lg text-[white]">
-          <Map center={mapCoords} width="600px" height="650px" />
+        <div className="bg-white border-40 border-white rounded-lg shadow-lg w-full lg:w-auto lg:flex-1 overflow-hidden h-[400px] lg:h-auto">
+          <Map center={mapCoords} width="100%" height="100%" />
         </div>
       </div>
     </div>
