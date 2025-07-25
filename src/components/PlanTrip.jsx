@@ -98,10 +98,10 @@ function PlanTrip() {
 
   return (
     <div>
-      <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white bg-[#043927b6] pt-25 pl-4 sm:pl-25">
+      <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white bg-[#043927b6] pt-4 sm:pt-10 md:pt-15 lg:pt-25 pl-4 sm:pl-25">
         PLAN YOUR NEXT TRIP
       </h2>
-      <div className="flex flex-col lg:flex-row justify-between gap-4 sm:gap-10 p-4 sm:p-25 pt-10 bg-[#043927b6] text-white">
+      <div className="flex flex-col lg:flex-row justify-between gap-4 sm:gap-10 p-4 sm:p-25 pt-4 sm:pt-6 md:pt-8 lg:pt-10 bg-[#043927b6] text-white">
         <div className="bg-white border-40 border-white rounded-lg shadow-lg text-[#043927] text-lg sm:text-xl font-semibold p-4 w-full lg:w-auto lg:flex-1">
           <form className="flex flex-col justify-evenly gap-3">
             <label>WHEN DOES YOUR TRIP START?</label>

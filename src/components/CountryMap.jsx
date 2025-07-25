@@ -69,8 +69,8 @@ function CountryMap() {
   };
 
   return (
-    <div className="bg-[#04392740] p-4 sm:p-25">
-      <div className="flex flex-col sm:flex-row items-center justify-between pb-10 gap-4">
+    <div className="bg-[#04392740]">
+      <div className="flex flex-col sm:flex-row items-center justify-between pt-4 sm:pt-10 md:pt-15 lg:pt-25 pl-4 sm:pl-25 pr-4 sm:pr-25 gap-4">
         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-[#043927]">
           ALL COUNTRIES
         </h2>
@@ -88,11 +88,11 @@ function CountryMap() {
         </p>
       )}
       {loading ? (
-        <p className="min-h-screen text-lg font-semibold text-[#043927]">
+        <p className="min-h-screen text-lg font-semibold text-[#043927] p-4 sm:p-25">
           LOADING...
         </p>
       ) : (
-        <div className="flex flex-col lg:flex-row justify-between items-start gap-4 sm:gap-10">
+        <div className="flex flex-col lg:flex-row justify-between items-start gap-4 sm:gap-10 pt-4 sm:pt-6 md:pt-8 lg:pt-10 p-4 sm:p-25">
           <div className="bg-white h-auto lg:h-[600px] w-full lg:w-auto lg:flex-[0.4] text-[#043927] rounded-lg shadow-lg font-semibold border-40 border-white p-5">
             {selectedCountry ? (
               <>

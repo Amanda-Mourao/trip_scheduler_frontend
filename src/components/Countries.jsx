@@ -59,7 +59,7 @@ function Countries() {
 
   return (
     <div className="bg-[#04392740]">
-      <div className="flex flex-col sm:flex-row items-center justify-between pt-25 pl-4 sm:pl-25 pr-4 sm:pr-25 gap-4">
+      <div className="flex flex-col sm:flex-row items-center justify-between pt-4 sm:pt-10 md:pt-15 lg:pt-25 pl-4 sm:pl-25 pr-4 sm:pr-25 gap-4">
         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-[#043927]">
           ALL COUNTRIES
         </h2>
@@ -81,7 +81,7 @@ function Countries() {
           LOADING...
         </p>
       ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-15 pt-10 p-4 sm:p-25">
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-15 pt-4 sm:pt-6 md:pt-8 lg:pt-10 p-4 sm:p-25">
           {countries.map((country, id) => (
             <div
               key={country?.country || id}

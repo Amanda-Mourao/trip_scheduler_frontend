@@ -33,10 +33,10 @@ function NextTrips() {
 
   return (
     <div className="min-h-screen bg-[#043927b6]">
-      <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white pt-25 pl-4 sm:pl-25">
+      <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white pt-4 sm:pt-10 md:pt-15 lg:pt-25 pl-4 sm:pl-25">
         YOUR NEXT TRIPS
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-20 p-4 sm:p-25 pt-10 text-white">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-20 p-4 sm:p-25 pt-4 sm:pt-6 md:pt-8 lg:pt-10 text-white">
         {trips.length === 0 ? (
           <p className="font-semibold text-xl hover:underline">
             <NavLink to="trip">
